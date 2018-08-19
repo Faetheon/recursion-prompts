@@ -127,13 +127,40 @@ var exponent = function(base, exp) {
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
-var powerOfTwo = function(n) {};
+var powerOfTwo = function(n) {
+	if (n === 1) {
+		return true;
+	} else if (n % 2 !== 0 || n === 0) {
+		return false;
+	} else {
+		return powerOfTwo(n / 2);
+	}
+};
 
 // 9. Write a function that reverses a string.
-var reverse = function(string) {};
+var reverse = function(string) {
+	if (string === '') {
+		return '';
+	} else {
+		return reverse(string.substr(1)) + string.charAt(0);
+	}
+};
 
 // 10. Write a function that determines if a string is a palindrome.
-var palindrome = function(string) {};
+var palindrome = function(string) {
+	if (!string.a) {
+		string = string.replace(/\s/g, '').toLowerCase();
+		return palindrome((string = { a: string, b: string }));
+	} else if (!Array.isArray(string.b)) {
+		return palindrome((string = { a: string.a, b: [reverse(string.b)] }));
+	}
+
+	if (string.a === string.b.toString()) {
+		return true;
+	} else {
+		return false;
+	}
+};
 
 // 11. Write a function that returns the remainder of x divided by y without using the
 // modulo (%) operator.
@@ -141,17 +168,92 @@ var palindrome = function(string) {};
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
-	if (x / y !== Math.floor(x / y)) {
+	if (x < 0 || y < 0) {
+		return modulo({ a: x, b: y }, true);
 	}
+
+	x.c = parseInt(x.a / x.b);
+	x.d = x.c * x.b;
+	if (x.a < 0) {
+		x.a * -1;
+	}
+	if (x.d < 0) {
+		x.d * -1;
+	}
+	return x.a - x.d;
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
-var multiply = function(x, y) {};
+var multiply = function(x, y) {
+	if (x < y) {
+		return multiply(y, x);
+	} else if (y != 0) {
+		return x + multiply(x, y - 1);
+	} else {
+		return 0;
+	}
+};
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
-var divide = function(x, y) {};
+// var divide = function(x, y) {
+//   if (x > y) {
+//     return divide(y, x);
+//   } else if (x.a > x.b && y === 0) {
+//     return divide({a: x.b, b: x.a, c: x.c}, 0)
+//   }
+
+//   if (x < 0 && y < 0) {
+//     x = x - x - x;
+//     y = y - y - y;
+//     return divide({a: x, b: y, c: true}, 0);
+//   } else if (!(x.a) && y < 0) {
+//     y = y - y - y;
+//     return divide({a: x, b: y, c: true}, 0);
+//   } else if (!(x.a) && x < 0){
+//     x = x - x - x;
+//     return divide({a: x, b: y, c: true}, 0);
+//   } else if (!(x.a)) {
+//     return divide({a: x, b: (y - x), c: x.c}, 1);
+//   } else if(x.a <= x.b) {
+//     console.log(y, x.a, x.b);
+//     return divide({a: x.a, b: (x.b - x.a), c: x.c}, y += 1);
+//   }
+
+//   console.log(y);
+
+//   if(x.c === true) {
+//     return y = y - y - y;
+//   } else {
+//     return y;
+//   }
+// };
+
+var divide = function(x, y) {
+	if (x < 0 && y < 0) {
+		x = x - x - x;
+		y = y - y - y;
+		return divide({ a: x, b: y - x, c: x.c }, 1);
+	} else if (x > y && !x.a && y < 0 && x > 0) {
+		y = y - y - y;
+		return divide({ a: x, b: y - x, c: true }, 1);
+	} else if (x < y && !x.a && x < 0) {
+		x = x - x - x;
+		return divide({ a: x, b: y - x, c: true }, 1);
+	} else if (x < y && !x.a && x > 0) {
+		return divide({ a: x, b: y - x, c: x.c }, 1);
+	} else if (x.a <= x.b && x.a > 0) {
+		console.log(x.a, x.b);
+		return divide({ a: x.a, b: x.b - x.a, c: x.c }, (y += 1));
+	}
+
+	if (x.c === true) {
+		return (y = y - y - y);
+	} else {
+		return y;
+	}
+};
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
